@@ -24,10 +24,16 @@ class Persona(models.Model):
 
     first_name = models.CharField('Nombre', max_length=50)
     surnames = models.CharField('Apellidos', max_length=50)
+    full_name = models.CharField(
+        'Nombre completo',
+        max_length=120,
+        blank=True)
     job = models.CharField('Trabajo', max_length=50, choices=JOB_CHOICES)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     # image = models.ImageField(, upload_to=None, height_field=None, width_field=None, max_length=None)
     habilidades = models.ManyToManyField(Habilidades)
+    habilidades.short_description = "Habilidades"
+
     hoja_vida = RichTextField()
 
     class Meta:
@@ -35,6 +41,9 @@ class Persona(models.Model):
         verbose_name_plural = 'Empleados'
         ordering = ['-first_name']
         unique_together = ('first_name', 'surnames')
+
+    # def show_habilidades(self):
+    #     return ', '.join([h.habilidades for h in self.objects.all()])
 
     def __str__(self):
         return self.first_name + '-' + self.surnames

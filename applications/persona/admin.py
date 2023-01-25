@@ -7,6 +7,7 @@ admin.site.register(Habilidades)
 
 class PersonaAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'first_name',
         'surnames',
         'departamento',

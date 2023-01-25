@@ -1,0 +1,6 @@
+<title>Register</title>
+<h1>Create view</h1>
+<form method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
