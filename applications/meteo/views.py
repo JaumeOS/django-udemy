@@ -9,3 +9,6 @@ class PruebaListView(ListView):
     template_name = 'meteo/lista.html'
     queryset = ['A', 'B', 'C']
     context_object_name = 'lista_prueba'
+
+class PruebaView(TemplateView):
+    template_name = 'prueba/prueba.html'    
