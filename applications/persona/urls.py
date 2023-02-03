@@ -5,7 +5,6 @@ app_name = "persona_app"
 
 urlpatterns = [
 
-
     path('listar-empleados/', views.ListAllEmpleados.as_view()),
     path('listar-by-area/<shor_name>', views.ListByAreaEmpleados.as_view()),
     path('form_kword/', views.FormKword.as_view()),
@@ -17,5 +16,15 @@ urlpatterns = [
         'success/',
         views.SuccessView.as_view(),
         name='correcto'
+    ),
+    path(
+        'update/<pk>',
+        views.PersonaUpdateView.as_view(),
+        name='update'
+    ),
+    path(
+        'delete/<pk>',
+        views.PersonaDeleteView.as_view(),
+        name='delete'
     ),
 ]

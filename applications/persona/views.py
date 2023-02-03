@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, TemplateView
+from django.views.generic import (
+    ListView, 
+    DetailView, 
+    CreateView, 
+    TemplateView, 
+    UpdateView, 
+    DeleteView
+)
 from django.core.paginator import Paginator
 
 from .models import Persona
-
+from .forms import *
 
 class ListAllEmpleados(ListView):
     template_name = 'persona/list_all.html'
@@ -104,3 +111,41 @@ class PersonaCreateView(CreateView):
         empleado.save()
         print(empleado)
         return super(PersonaCreateView, self).form_valid(form)
+
+
+class PersonaUpdateView(UpdateView):
+    model = Persona
+    template_name = "persona/update.html"
+    fields = [
+        'first_name',
+        'surnames',
+        'departamento',
+        'job',
+        'habilidades',
+    ]
+        
+    success_url = reverse_lazy('persona_app:correcto')
+
+    def post(self, request, *args: str, **kwargs) :
+        print('**************POST*****************')
+        print(request.POST)
+        print(request.POST['habilidades'])
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        print('**************FORM*****************')
+        return super(PersonaUpdateView, self).form_valid(form)
+
+
+class PersonaDeleteView(DeleteView):
+    model = Persona
+    template_name = "persona/delete.html"
+
+    success_url = reverse_lazy('persona_app:correcto')
+
+
+class PruebPersonaCreateView(CreateView):
+    model = Persona
+    template_name = "persoa/add.html"
+    success_url = reverse_lazy('persona_app:correcto')
+    form_class = EmpleadoForm
